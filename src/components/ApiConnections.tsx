@@ -233,7 +233,11 @@ const ApiConnections = ({ onBack, embedded = false }: ApiConnectionsProps) => {
   ];
 
   return (
+<<<<<<< HEAD
     <div className={embedded ? 'text-[14px]' : 'min-h-screen bg-gray-50 dark:bg-gray-900 dashboard-rounded overflow-y-auto'}>
+=======
+    <div className={embedded ? 'text-[14px]' : 'min-h-screen bg-gray-50 dashboard-rounded overflow-y-auto'}>
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
       <style>{`
         @keyframes slideInLeft {
           from {
@@ -250,7 +254,11 @@ const ApiConnections = ({ onBack, embedded = false }: ApiConnectionsProps) => {
       
       {/* Top Navigation (fixed) */}
       {!embedded && (
+<<<<<<< HEAD
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+=======
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white">
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
         <div className="flex items-center h-16">
           {/* Left side - Logo + collapse toggle */}
           <div className={`${sidebarCollapsed ? 'w-16' : 'w-64'} px-4 py-3 flex items-center space-x-3 overflow-hidden transition-[width] duration-300`}>
@@ -315,7 +323,11 @@ const ApiConnections = ({ onBack, embedded = false }: ApiConnectionsProps) => {
       <div className={embedded ? '' : 'flex pt-16 overflow-auto'}>
         {/* Sidebar (collapsible + sticky) */}
         {!embedded && (
+<<<<<<< HEAD
         <div className={`hidden lg:flex ${sidebarCollapsed ? 'w-16' : 'w-64'} overflow-hidden transition-[width] duration-300 bg-white dark:bg-gray-900 flex-col min-h-[calc(100vh-4rem)] sticky top-16 self-start border-r border-gray-200 dark:border-gray-800`}>
+=======
+        <div className={`hidden lg:flex ${sidebarCollapsed ? 'w-16' : 'w-64'} overflow-hidden transition-[width] duration-300 bg-white flex-col min-h-[calc(100vh-4rem)] sticky top-16 self-start`}>
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
           <nav className="flex-1 px-3 pt-2 pb-5 space-y-1 overflow-auto">
             {sidebarItems.map((item) => {
               const isActive = item.id === activeFilter;
@@ -367,7 +379,11 @@ const ApiConnections = ({ onBack, embedded = false }: ApiConnectionsProps) => {
         {!embedded && drawerOpen && (
           <div className="lg:hidden fixed inset-0 z-50 flex">
             <div className="fixed inset-0 bg-black opacity-50" onClick={() => setDrawerOpen(false)}></div>
+<<<<<<< HEAD
             <div className="relative w-64 bg-white dark:bg-gray-900 animate-slideInLeft">
+=======
+            <div className="relative w-64 bg-white animate-slideInLeft">
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
               <div className="p-4">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center space-x-2">
@@ -424,8 +440,13 @@ const ApiConnections = ({ onBack, embedded = false }: ApiConnectionsProps) => {
           <>
           {/* Header */}
           <div className="mb-4">
+<<<<<<< HEAD
             <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-0.5">API Connections</h1>
             <p className="text-gray-600 dark:text-gray-300 text-xs">Easily connect your cloud storage providers and manage them in one place.</p>
+=======
+            <h1 className="text-lg font-semibold text-gray-900 mb-0.5">API Connections</h1>
+            <p className="text-gray-600 text-xs">Easily connect your cloud storage providers and manage them in one place.</p>
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
           </div>
 
           {/* Search Bar */}
@@ -447,8 +468,13 @@ const ApiConnections = ({ onBack, embedded = false }: ApiConnectionsProps) => {
 
           {/* Connected Section */}
           <div className="mb-4">
+<<<<<<< HEAD
             <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">Connected</h2>
             <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+=======
+            <h2 className="text-sm font-semibold text-gray-900 mb-2">Connected</h2>
+            <div className="bg-white rounded-lg border border-gray-200 p-4">
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
               {connectedProviders.map((provider) => (
                 <div key={provider.id} className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
@@ -482,14 +508,23 @@ const ApiConnections = ({ onBack, embedded = false }: ApiConnectionsProps) => {
           {/* Top Providers Section */}
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
+<<<<<<< HEAD
               <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Top Providers</h2>
               <button className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 text-sm">
+=======
+              <h2 className="text-sm font-semibold text-gray-900">Top Providers</h2>
+              <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 text-sm">
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
                 <Filter className="h-4 w-4" />
                 <span>Filters</span>
               </button>
             </div>
             
+<<<<<<< HEAD
             <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+=======
+            <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
               {topProviders.map((provider, idx) => (
                 <div
                   key={provider.id}

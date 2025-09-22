@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Search, User, Home, Folder, Database, Shield, Settings, Plus, MoreVertical, ChevronRight, X, Menu, Image } from 'lucide-react';
 import Gallery from './Gallery';
 import ApiConnections from './ApiConnections';
+<<<<<<< HEAD
 import Projects from './Projects';
+=======
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
 import { supabase } from '../lib/supabaseClient';
 
 interface DashboardProps {
@@ -21,6 +24,7 @@ const Dashboard = ({ onNavigateToApi }: DashboardProps) => {
   // Context menu state for three-dot options
   const [openMenu, setOpenMenu] = useState<{ type: 'recent' | 'file'; id: string } | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
+<<<<<<< HEAD
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [themeMode, setThemeMode] = useState<'system' | 'light' | 'dark'>('light');
 
@@ -46,6 +50,13 @@ const Dashboard = ({ onNavigateToApi }: DashboardProps) => {
     setOpenMenu((prev) => (prev && prev.type === type && prev.id === id ? null : { type, id }));
   };
 
+=======
+
+  const toggleMenu = (type: 'recent' | 'file', id: string) => {
+    setOpenMenu((prev) => (prev && prev.type === type && prev.id === id ? null : { type, id }));
+  };
+
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
   const closeMenu = () => setOpenMenu(null);
 
   // Get current Supabase user email and listen for auth changes; fallback to localStorage
@@ -180,7 +191,11 @@ const Dashboard = ({ onNavigateToApi }: DashboardProps) => {
         }
       `}</style>
       {/* Top Navigation */}
+<<<<<<< HEAD
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+=======
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white">
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
         <div className="flex items-center h-16">
           {/* Left side - Logo section (width matches sidebar) */}
           <div className={`${sidebarCollapsed ? 'w-16 px-0 justify-center' : 'w-64 px-4'} py-3 flex items-center ${sidebarCollapsed ? 'space-x-0' : 'space-x-3'} overflow-hidden transition-[width] duration-300`}>
@@ -260,6 +275,7 @@ const Dashboard = ({ onNavigateToApi }: DashboardProps) => {
         </div>
       </nav>
 
+<<<<<<< HEAD
       {/* Settings Modal */}
       {settingsOpen && (
         <div className="fixed inset-0 z-[120]">
@@ -341,6 +357,11 @@ const Dashboard = ({ onNavigateToApi }: DashboardProps) => {
       <div className="flex pt-16">
         {/* Sidebar: hidden on mobile, flex on lg+ */}
         <div className={`hidden lg:flex ${sidebarCollapsed ? 'w-16' : 'w-64'} overflow-hidden transition-[width] duration-300 bg-white dark:bg-gray-900 flex-col min-h-[calc(100vh-4rem)] sticky top-16 self-start border-r border-gray-200 dark:border-gray-800`}>
+=======
+      <div className="flex pt-16">
+        {/* Sidebar: hidden on mobile, flex on lg+ */}
+        <div className={`hidden lg:flex ${sidebarCollapsed ? 'w-16' : 'w-64'} overflow-hidden transition-[width] duration-300 bg-white flex-col min-h-[calc(100vh-4rem)] sticky top-16 self-start`}>
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
           <nav className="flex-1 px-3 py-6 space-y-1 overflow-auto">
             {sidebarItems.map((item) => (
               <button
@@ -365,11 +386,16 @@ const Dashboard = ({ onNavigateToApi }: DashboardProps) => {
 
           {/* Settings section at bottom */}
           <div className="px-4 pb-6">
+<<<<<<< HEAD
             <button
               onClick={() => setSettingsOpen(true)}
               className={`flex items-center w-full py-3 px-3 rounded-lg transition font-medium text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 ${sidebarCollapsed ? 'justify-center' : ''}`}
             > 
               <Settings className="h-5 w-5 text-gray-400" />
+=======
+            <button className={`flex items-center w-full py-3 px-3 rounded-lg transition font-medium text-sm text-gray-700 hover:bg-gray-50 ${sidebarCollapsed ? 'justify-center' : ''}`}>
+              <Settings className={`${sidebarCollapsed ? 'h-12 w-12' : 'h-6 w-6'} text-gray-700`} />
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
               {!sidebarCollapsed && <span className="ml-3">Setting</span>}
             </button>
             
@@ -458,7 +484,11 @@ const Dashboard = ({ onNavigateToApi }: DashboardProps) => {
         )}
 
         {/* Main Content */}
+<<<<<<< HEAD
         <div className={`flex-1 bg-gray-50 dark:bg-gray-900 text-[14px] ${activeFilter === 'gallery' ? 'lg:h-[calc(100vh-4rem)] overflow-auto lg:overflow-hidden' : 'pb-28'}`}>
+=======
+        <div className={`flex-1 bg-gray-50 text-[14px] ${activeFilter === 'gallery' ? 'lg:h-[calc(100vh-4rem)] overflow-auto lg:overflow-hidden' : 'pb-28'}`}>
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
           {/* Welcome + Projects only on Home */}
           {activeFilter === 'home' && (
           <div className="px-4 lg:px-6 py-4">
@@ -471,16 +501,28 @@ const Dashboard = ({ onNavigateToApi }: DashboardProps) => {
             <div className="mb-6">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {projects.map((project) => (
+<<<<<<< HEAD
                   <div key={project.id} className="bg-white dark:bg-gray-800 rounded-lg p-2.5 border border-gray-200 dark:border-gray-700 hover:shadow-sm transition-shadow cursor-pointer h-14">
+=======
+                  <div key={project.id} className="bg-white rounded-lg p-2.5 border border-gray-200 hover:shadow-sm transition-shadow cursor-pointer h-14">
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
                     <div className="flex items-center justify-between mb-0.5">
                       <div className={`w-5 h-5 ${project.color} rounded flex items-center justify-center text-xs`}>
                         {project.icon}
                       </div>
+<<<<<<< HEAD
                       <button className="text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100">
                         <MoreVertical className="h-3 w-3" />
                       </button>
                     </div>
                     <h3 className="text-xs font-medium text-gray-900 dark:text-gray-100">{project.name}</h3>
+=======
+                      <button className="text-gray-400 hover:text-gray-600">
+                        <MoreVertical className="h-3 w-3" />
+                      </button>
+                    </div>
+                    <h3 className="text-xs font-medium text-gray-900">{project.name}</h3>
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
                   </div>
                 ))}
               </div>
@@ -495,6 +537,7 @@ const Dashboard = ({ onNavigateToApi }: DashboardProps) => {
             </div>
           )}
 
+<<<<<<< HEAD
           {/* Projects Route */}
           {activeFilter === 'projects' && (
             <div className="px-4 lg:px-6 py-4">
@@ -502,6 +545,8 @@ const Dashboard = ({ onNavigateToApi }: DashboardProps) => {
             </div>
           )}
 
+=======
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
           {/* Manage API Route */}
           {activeFilter === 'api' && (
             <div className="px-4 lg:px-6 py-4">
@@ -679,8 +724,13 @@ const Dashboard = ({ onNavigateToApi }: DashboardProps) => {
                     </div>
                   </div>
                   <div className="flex-1 p-3">
+<<<<<<< HEAD
                     <div className="w-full border-2 border-dotted border-gray-300 dark:border-gray-700 bg-white dark:bg-black rounded-xl px-3 py-1.5 flex items-center justify-between">
                       <span className="text-xs text-gray-500 dark:text-gray-300">Choose or Drag an image to upload</span>
+=======
+                    <div className="w-full border-2 border-dotted border-gray-300 rounded-xl px-3 py-1.5 flex items-center justify-between">
+                      <span className="text-xs text-gray-500">Choose or Drag an image to upload</span>
+>>>>>>> 2b43616bbc8204b0f39a43bb331b72fd1fb278b2
                       <button 
                         onClick={() => setShowUploadModal(true)}
                         className="dashboard-pill bg-gray-900 text-white px-4 py-1.5 font-medium hover:bg-gray-800 transition-colors inline-flex items-center space-x-2 shadow-sm text-xs"
