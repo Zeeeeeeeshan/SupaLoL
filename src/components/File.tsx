@@ -1,9 +1,10 @@
-import React, { useState, useRef as useDomRef } from 'react';
+import React, { useState, useRef as useDomRef, useEffect } from 'react';
 import { Upload, X } from 'lucide-react';
 
 const ACCEPTED_TYPES = ['image/png', 'image/jpeg', 'image/gif'];
+const MAX_SIZE = 10 * 1024 * 1024; // 10MB
 
-const File = () => {
+const FileUpload = () => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<'idle' | 'uploading' | 'success' | 'error'>('idle');
   const [file, setFile] = useState<File | null>(null);
@@ -11,6 +12,15 @@ const File = () => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useDomRef<HTMLInputElement>(null);
+  const intervalRef = useDomRef<NodeJS.Timeout | null>(null);
+
+  // Cleanup preview URL
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [preview]);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -26,37 +36,51 @@ const File = () => {
     e.preventDefault();
     setIsDragOver(false);
     const droppedFile = e.dataTransfer.files[0];
-    handleFile(droppedFile);
+    if (droppedFile) handleFile(droppedFile);
   };
 
   const handleFile = (selectedFile: File) => {
     setError(null);
+
     if (!ACCEPTED_TYPES.includes(selectedFile.type)) {
       setError('Only PNG, JPG, and GIF files are allowed.');
-      setFile(null);
-      setPreview(null);
+      resetFile();
       return;
     }
+
+    if (selectedFile.size > MAX_SIZE) {
+      setError('File size must be less than 10MB.');
+      resetFile();
+      return;
+    }
+
     setFile(selectedFile);
-    setPreview(URL.createObjectURL(selectedFile));
+    const previewUrl = URL.createObjectURL(selectedFile);
+    setPreview(previewUrl);
+
     setUploadStatus('uploading');
     setProgress(0);
-    // Simulate upload progress
+
     let prog = 0;
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       prog += 10;
       setProgress(prog);
       if (prog >= 100) {
-        clearInterval(interval);
+        if (intervalRef.current) clearInterval(intervalRef.current);
         setUploadStatus('success');
         setTimeout(() => {
-          setUploadStatus('idle');
-          setFile(null);
-          setPreview(null);
-          setProgress(0);
+          resetFile();
         }, 2000);
       }
     }, 120);
+  };
+
+  const resetFile = () => {
+    setFile(null);
+    if (preview) URL.revokeObjectURL(preview);
+    setPreview(null);
+    setUploadStatus('idle');
+    setProgress(0);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +91,6 @@ const File = () => {
 
   return (
     <div className="w-full relative flex justify-center items-center py-16 overflow-hidden">
-      {/* Main upload card - wider and with bg color */}
       <div className="w-full max-w-5xl rounded-2xl shadow-xl bg-blue-50 p-0.5 z-10">
         <div className="rounded-2xl bg-blue-50 p-10 md:p-12 lg:p-16 flex flex-col items-center w-full">
           {/* Header */}
@@ -81,16 +104,17 @@ const File = () => {
             {file && (
               <button
                 className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-100 border border-gray-200 text-gray-400 hover:bg-gray-200 transition-colors duration-200"
-                onClick={() => { setFile(null); setPreview(null); setUploadStatus('idle'); setProgress(0); }}
+                onClick={resetFile}
                 aria-label="Remove file"
               >
                 <X className="w-4 h-4" />
               </button>
             )}
           </div>
+
           {/* Drop area */}
           <div
-            className={`flex flex-col items-center justify-center rounded-xl transition-all duration-300 py-10 px-4 mb-6 relative 
+            className={`flex flex-col items-center justify-center rounded-xl transition-all duration-300 py-10 px-4 mb-6 relative
               ${isDragOver ? 'bg-blue-50 shadow-[0_0_32px_0_rgba(59,130,246,0.15)] ring-2 ring-blue-400 scale-105' : 'bg-gray-50 hover:scale-102 hover:shadow-lg'}
               backdrop-blur-md bg-opacity-80 border border-transparent`}
             onDragOver={handleDragOver}
@@ -100,9 +124,7 @@ const File = () => {
             style={{ cursor: 'pointer' }}
           >
             <div className="flex flex-col items-center">
-              <span
-                className={`inline-block mb-4 transition-all duration-300 ${isDragOver ? 'scale-110 rotate-12' : 'scale-100 rotate-0'}`}
-              >
+              <span className={`inline-block mb-4 transition-all duration-300 ${isDragOver ? 'scale-110 rotate-12' : 'scale-100 rotate-0'}`}>
                 <Upload className="w-12 h-12 text-blue-400" />
               </span>
               <div className="text-gray-900 text-lg font-semibold mb-1">Drop files here</div>
@@ -124,6 +146,7 @@ const File = () => {
               />
               <div className="text-xs text-gray-400 mt-3">PNG, JPG, GIF up to 10MB</div>
               {error && <div className="mt-3 text-red-500 text-sm font-medium">{error}</div>}
+
               {file && preview && (
                 <div className="mt-6 flex flex-col items-center">
                   <img src={preview} alt="preview" className="w-32 h-32 object-cover rounded-lg shadow-md mb-2 border border-gray-200" />
@@ -150,4 +173,4 @@ const File = () => {
   );
 };
 
-export default File; 
+export default FileUpload;
